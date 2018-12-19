@@ -15,9 +15,10 @@ namespace  {
 <?php if ($namespace == '\ApolloPY\Eloquent'): continue; endif; ?>
 namespace <?= $namespace == '__root' ? '' : trim($namespace, '\\') ?> { 
 <?php foreach($aliases as $alias): ?>
+<?php $methods = $alias->getMethods(); if (!$methods): continue; endif; ?>
 
     <?= $alias->getClassType() ?> <?= $alias->getExtendsClass() ?> {
-        <?php foreach($alias->getMethods() as $method): ?>
+        <?php foreach($methods as $method): ?>
 
         <?= trim($method->getDocComment('        ')) ?> 
         public static function <?= $method->getName() ?>(<?= $method->getParamsWithDefault() ?>)
